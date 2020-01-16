@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+		<link rel="stylesheet" href="index.css">
+		<script src="tracker.js"></script>
+	</head>
+	<body bgcolor="#36393F">
+		<span type="max">Mod Tracker</span>
+		<br><br>
+		<span>
+			Transparency is not a word in Moderators' vocabulary. They like to be in shadows so that wrong actions get unnoticed.<br><br>
+			Not anymore. Here it is a public tool so that you can make your own arguments based on live data of their activity in Transformice.<br><br>
+			A score point is registered every 5 minutes; However it does not mean they were online for 5 minutes, but for within a range of 1 second to 5 minutes.<br>
+			To calculate the time in minutes, you may use:<br>
+			&emsp;max => (score * 5);<br>
+			&emsp;min => score / 100;
+		</span>
+		<br><br>
+		<button onclick="sortData(sortObjByScore)">Sort by value</button>
+		<button onclick="sortData(sortObjByName)">Sort by name</button>
+		<canvas id="chart" /></canvas>
+		<p align="center"><span type="min">By <blue>@Lautenschlager</blue></span></p>
+	</body>
+</html>

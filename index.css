@@ -1,0 +1,35 @@
+span {
+	color: #AAAAAA;
+	font-family: Verdana
+}
+
+span[type="max"] {
+	font-size: 150%;
+	font-weight: bold;
+}
+
+span[type="min"] {
+	font-size: 80%;
+}
+
+span blue {
+	color: #1C96CF;
+}
+
+a {
+	text-decoration: none;
+}
+
+button {
+	background-color: #535966;
+	border-radius: 2px;
+	border-style: none;
+	color: #AAAAAA;
+	font-size: .9em;
+	padding: 10px;
+	transition: .4s;
+}
+
+button:hover {
+	background-color: #42454d;
+}

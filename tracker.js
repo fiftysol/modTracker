@@ -1,4 +1,5 @@
-let currentChart, trackedData;
+let currentChart, trackedData, rawTrackedData;
+let communities = { };
 
 function hexToRGBA(hex, alpha) {
     let r = parseInt(hex.slice(1, 3), 16),
@@ -29,20 +30,13 @@ function getChartData()
 				{
 					"label": "Activity score",
 					"data": [ ],
-					backgroundColor: hexToRGBA("#7289DA")
+					"backgroundColor": hexToRGBA("#7289DA")
 				}
 			]
 		},
 
 		"options": {
 			"responsive": true,
-			"maintainAspectRatio": false,
-			"elements": {
-				"line": {
-					"fill": true,
-					"borderWidth": 1,
-				}
-			},
 			"legend": {
 				"labels": {
 					"fontColor": "#AAAAAA"
@@ -56,7 +50,8 @@ function getChartData()
 				}],
 				"yAxes": [{
 					"ticks": {
-						"fontColor": "#BABD2F"
+						"fontColor": "#BABD2F",
+						"fontFamily": "Roboto"
 					}
 				}]
 			}
@@ -84,10 +79,35 @@ async function trackData()
 	return data;
 }
 
-function sortData(f)
+function rebuildChart(data)
 {
 	currentChart.destroy();
-	currentChart = createChart(trackedData.sort(f));
+	currentChart = createChart(data);
+}
+
+async function installCommunityMembers(commu)
+{
+	if (communities[commu]) return;
+	let body = await fetch("https://cors-anywhere.herokuapp.com/https://atelier801.com/staff-ajax?role=1")
+	body = await body.text()
+	body = await [ ...body.matchAll(new RegExp(/data-search="/).source + commu + new RegExp(/".+?alt="">  (\w+?)<span class="font-s couleur-hashtag-pseudo">/).source) ];
+	communities[commu] = { }
+	await body.map(data => communities[commu][data[1]] = true)
+}
+
+async function setCommunity(commu)
+{
+	trackedData = rawTrackedData;
+	if (commu != '') {
+		await installCommunityMembers(commu);
+		trackedData = trackedData.filter((name) => !!communities[commu][name[0]]);
+	}
+	rebuildChart(trackedData);
+}
+
+function sortData(f, param = null)
+{
+	rebuildChart(trackedData.sort(f));
 }
 
 async function filterData(data)
@@ -114,7 +134,7 @@ async function filterData(data)
 
 	document.getElementById("info").innerText = totalRegisters + " registers, " + totalDays + " days"
 
-	return trackedData = Object.keys(names).map(function(name) {
+	return rawTrackedData = trackedData = Object.keys(names).map(function(name) {
 		return [name, names[name]];
 	});
 }

@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 span {
 	color: #AAAAAA;
-	font-family: Verdana
+	font-family: "Roboto", Verdana
 }
 
 span[type="max"] {
@@ -32,10 +34,4 @@ button {
 
 button:hover {
 	background-color: #42454d;
-}
-
-.chart {
-	position: block;
-	height: 100vh;
-	width: 100vw
 }

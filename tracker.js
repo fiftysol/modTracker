@@ -35,6 +35,8 @@ function getChartData()
 		},
 
 		"options": {
+			"responsive": true,
+			"maintainAspectRatio": false,
 			"elements": {
 				"line": {
 					"fill": true,
@@ -54,7 +56,9 @@ function getChartData()
 				}],
 				"yAxes": [{
 					"ticks": {
-						"fontColor": "#BABD2F"
+						"fontColor": "#BABD2F",
+						"fontSize": 18,
+						"lineHeight": 300
 					}
 				}]
 			}

@@ -36,6 +36,7 @@ function getChartData()
 
 		"options": {
 			"responsive": true,
+			"maintainAspectRatio": false,
 			"elements": {
 				"line": {
 					"fill": true,

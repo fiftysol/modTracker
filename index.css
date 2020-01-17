@@ -33,3 +33,9 @@ button {
 button:hover {
 	background-color: #42454d;
 }
+
+.chart {
+	position: block;
+	height: 100vh;
+	width: 100vw
+}

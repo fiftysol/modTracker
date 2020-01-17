@@ -33,7 +33,7 @@ function getChartData()
 				}
 			]
 		},
-	
+
 		"options": {
 			"elements": {
 				"line": {
@@ -90,9 +90,13 @@ function sortData(f)
 
 async function filterData(data)
 {
+	let totalRegisters = 0, totalDays = 0;
 	let names = { };
 
 	for (let date in data)
+	{
+		totalDays++;
+		totalRegisters += data[date].length;
 		for (let registers of data[date])
 		{
 			registers = registers.split('#');
@@ -104,6 +108,9 @@ async function filterData(data)
 				else
 					names[name]++;
 		}
+	}
+
+	document.getElementById("info").innerText = totalRegisters + " registers, " + totalDays + " days"
 
 	return trackedData = Object.keys(names).map(function(name) {
 		return [name, names[name]];

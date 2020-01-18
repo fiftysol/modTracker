@@ -37,7 +37,8 @@ function getChartData()
 
 		"options": {
 			"responsive": true,
-			"legend": {
+			"maintainAspectRatio": true,
+"legend": {
 				"labels": {
 					"fontColor": "#AAAAAA"
 				}

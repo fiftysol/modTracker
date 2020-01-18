@@ -1,5 +1,16 @@
-let currentChart, trackedData, rawTrackedData;
-let communities = { };
+let currentChart, trackedData, rawNames, rawTrackedData;
+let staffList, communities = { };
+
+if (!String.format) {
+	String.format = function(format)
+	{
+		var args = Array.prototype.slice.call(arguments, 1);
+		return format.replace(/{(\d+)}/g, function(match, number)
+		{
+			return typeof args[number] != "undefined" ? args[number] : match;
+		});
+	};
+}
 
 function hexToRGBA(hex, alpha) {
     let r = parseInt(hex.slice(1, 3), 16),
@@ -37,8 +48,8 @@ function getChartData()
 
 		"options": {
 			"responsive": true,
-			"maintainAspectRatio": true,
-"legend": {
+			"maintainAspectRatio": false,
+			"legend": {
 				"labels": {
 					"fontColor": "#AAAAAA"
 				}
@@ -62,6 +73,7 @@ function getChartData()
 
 function createChart(data)
 {
+	document.getElementById("chart-control").style.height = (data.length * 1.333333) + "em";
 	let chart = getChartData();
 	for (let nameData of data)
 	{
@@ -86,27 +98,41 @@ function rebuildChart(data)
 	currentChart = createChart(data);
 }
 
+const forumRegex = [ new RegExp(/data-search="/).source, new RegExp(/".+?alt="">  (\w+?)<span class="font-s couleur-hashtag-pseudo">/).source ];
+
 async function installCommunityMembers(commu)
 {
 	if (communities[commu]) return;
-	let body = await fetch("https://cors-anywhere.herokuapp.com/https://atelier801.com/staff-ajax?role=1")
-	body = await body.text()
-	body = await [ ...body.matchAll(new RegExp(/data-search="/).source + commu + new RegExp(/".+?alt="">  (\w+?)<span class="font-s couleur-hashtag-pseudo">/).source) ];
-	communities[commu] = { }
-	await body.map(data => communities[commu][data[1]] = true)
+	if (!staffList)
+	{
+		staffList = await fetch("https://cors-anywhere.herokuapp.com/https://atelier801.com/staff-ajax?role=1");
+		staffList = await staffList.text();
+	}
+
+	let names = await [ ...staffList.matchAll(forumRegex[0] + commu + forumRegex[1]) ];
+
+	communities[commu] = { };
+	await names.map(data => communities[commu][data[1]] = true)
 }
 
 async function setCommunity(commu)
 {
 	trackedData = rawTrackedData;
-	if (commu != '') {
+	if (commu != '')
+	{
 		await installCommunityMembers(commu);
+
+		// Removes who is not from the specific community
 		trackedData = trackedData.filter((name) => !!communities[commu][name[0]]);
+		// Adds who has 0 score
+		for (let name in communities[commu])
+			if (!rawNames[name])
+				trackedData.push([ name, 0 ]);
 	}
 	rebuildChart(trackedData);
 }
 
-function sortData(f, param = null)
+function sortData(f)
 {
 	rebuildChart(trackedData.sort(f));
 }
@@ -132,12 +158,11 @@ async function filterData(data)
 					names[name]++;
 		}
 	}
+	rawNames = names;
 
-	document.getElementById("info").innerText = totalRegisters + " registers, " + totalDays + " days"
+	document.getElementById("info").innerText = totalRegisters + " registers, " + totalDays + " days";
 
-	return rawTrackedData = trackedData = Object.keys(names).map(function(name) {
-		return [name, names[name]];
-	});
+	return rawTrackedData = trackedData = Object.keys(names).map((name) => [name, names[name]]);
 }
 
 window.onload = async function()

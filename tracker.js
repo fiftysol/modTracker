@@ -1,6 +1,13 @@
 let currentChart, trackedData, rawNames, rawTrackedData;
 let staffList, communities = { };
 
+const forumRegex = [ new RegExp(/<img src="\/img\/pays\//).source, new RegExp(/\.png".+? (\w+)<span class="nav-header-hashtag">/).source ];
+
+const commuList = [ "xx", "gb", "fr", "br", "es", "tr", "pl", "hu", "ro", "sa", "vk", "nl", "id", "de", "ru", "cn", "ph", "lt", "jp", "fi", "il", "it", "cz", "hr", "bg", "lv", "ee" ];
+const commuStr = "<td><button onclick=\"setCommunity('{0}')\"><img src=\"https://atelier801.com/img/pays/{0}.png\" alt=\"{0}\"></button></td>"
+
+let canvas, chart_control, info, communities_table;
+
 if (!String.format) {
 	String.format = function(format)
 	{
@@ -73,7 +80,7 @@ function getChartData()
 
 function createChart(data)
 {
-	document.getElementById("chart-control").style.height = (data.length * 1.333333) + "em";
+	chart_control.style.height = (Math.max(data.length, 7) * (4/3)) + "em";
 	let chart = getChartData();
 	for (let nameData of data)
 	{
@@ -81,7 +88,7 @@ function createChart(data)
 		chart.data.datasets[0].data.push(nameData[1]);
 	}
 
-	let ctx = document.getElementById("chart").getContext("2d");
+	let ctx = canvas.getContext("2d");
 	return new Chart(ctx, chart);
 }
 
@@ -97,8 +104,6 @@ function rebuildChart(data)
 	currentChart.destroy();
 	currentChart = createChart(data);
 }
-
-const forumRegex = [ new RegExp(/data-search="/).source, new RegExp(/".+?alt="">  (\w+?)<span class="font-s couleur-hashtag-pseudo">/).source ];
 
 async function installCommunityMembers(commu)
 {
@@ -160,14 +165,30 @@ async function filterData(data)
 	}
 	rawNames = names;
 
-	document.getElementById("info").innerText = totalRegisters + " registers, " + totalDays + " days";
+	info.innerText = totalRegisters + " registers, " + totalDays + " days";
 
 	return rawTrackedData = trackedData = Object.keys(names).map((name) => [name, names[name]]);
 }
 
+function populateCommunityDropdown()
+{
+	let index = 0;
+	communities_table.innerHTML = "<tr>" + commuList.map((commu) => String.format(commuStr, commu) + (++index % 4 == 0 ? "</tr><tr>" : '')).join('') + "</tr>";
+}
+
+function getElements()
+{
+	canvas = document.getElementById("chart");
+	chart_control = document.getElementById("chart-control");
+	info = document.getElementById("info");
+	communities_table = document.getElementById("communities");
+}
+
 window.onload = async function()
 {
+	await getElements();
 	let data = await trackData();
 	data = await filterData(data);
 	currentChart = createChart(data);
+	populateCommunityDropdown();
 }

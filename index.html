@@ -6,6 +6,7 @@
 		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 		<link rel="stylesheet" href="index.css">
 		<script src="tracker.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
 	<body bgcolor="#36393F">
 		<span type="max">Mod Tracker</span>
@@ -20,12 +21,28 @@
 			&emsp;min => score / 100;
 		</span>
 		<br><br>
-		<button onclick="sortData(sortObjByScore)">Sort by value</button>
-		<button onclick="sortData(sortObjByName)">Sort by name</button>
-		<button onclick="setCommunity('br')">Sort by community [BR]</button>
+		<ul class="navbar">
+			<li class="navitem">
+				<button onclick="sortData(sortObjByScore)">Sort by value <i class="fa fa-list-ol"></i></button>
+			</li>
+			<li class="navitem">
+				<button onclick="sortData(sortObjByName)">Sort by name <i class="fa fa-id-card"></i></button>
+			</li>
+			<li class="navitem dropdown">
+				<button>Sort by Community <i class="fa fa-flag"></i></button>
+    			<div class="dropdown-content">
+    				  <table id="communities" width="100%"></table>
+    			</div>
+    		</li>
+			<li class="navitem"><button onclick="setCommunity('')">Reset filter <i class="fa fa-cross"></i></button></li>
+    	</ul>
 		<div id="chart-control">
 			<canvas id="chart"></canvas>
 		</div>
-		<p align="center"><span type="min">By <blue>@Lautenschlager</blue></span></p>
+		<div class="footer">
+			Tool & Layout by <span class="credit" id="dev"></span>
+			<br>
+			Community layout by <span class="credit" id="art"></span>
+		</div>
 	</body>
 </html>

@@ -14,10 +14,6 @@ span[type="min"] {
 	font-size: 80%;
 }
 
-span blue {
-	color: #1C96CF;
-}
-
 a {
 	text-decoration: none;
 }
@@ -33,5 +29,152 @@ button {
 }
 
 button:hover {
-	background-color: #42454d;
+	background-color: #42454D;
+}
+
+.navbar {
+	margin: 0;
+	padding: 0;
+}
+
+.navitem {
+	display: inline;
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	z-index: 1;
+	width: 100%;
+	background-color: #42454D;
+	padding: 0px 2px 2px 0px;
+	margin-top: -2px;
+	margin-left: -1px;
+	border-radius: 6px;
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+/* Credits */
+.footer
+{
+	width: 100%
+	margin: auto;
+	text-align: center;
+
+	margin: 10px;
+	color: #D6DAE5;
+	font-family: Verdana;
+	font-size: 0.8rem;
+	align-content: center;
+}
+
+.credit:after {
+	color: #1C96CF;
+	content: '';
+}
+
+#dev:after
+{
+	animation: fade-out-dev-content 1s 1;
+	-webkit-animation: fade-out-dev-content 1s 1;
+	-moz-animation: fade-out-dev-content 1s 1;
+	-webkit-animation-fill-mode: forwards;
+	-moz-animation-fill-mode: forwards;
+	-o-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+}
+
+#dev:hover:after {
+	animation: fade-in-dev-content 1s 1;
+	-webkit-animation: fade-in-dev-content 1s 1;
+	-moz-animation: fade-in-dev-content 1s 1;
+	-webkit-animation-fill-mode: forwards;
+	-moz-animation-fill-mode: forwards;
+	-o-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+}
+
+@keyframes fade-out-dev-content {
+	0% {
+		opacity: 1;
+		content: "Bolodefchoco#0000";
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+		content: "@Lautenschlager#2555";
+	}
+}
+
+@keyframes fade-in-dev-content {
+	0% {
+		opacity: 1;
+		content: "@Lautenschlager#2555";
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+		content: "Bolodefchoco#0000";
+	}
+}
+
+#art:after
+{
+	animation: fade-out-art-content 1s 1;
+	-webkit-animation: fade-out-art-content 1s 1;
+	-moz-animation: fade-out-art-content 1s 1;
+	-webkit-animation-fill-mode: forwards;
+	-moz-animation-fill-mode: forwards;
+	-o-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+}
+
+#art:hover:after {
+	animation: fade-in-art-content 1s 1;
+	-webkit-animation: fade-in-art-content 1s 1;
+	-moz-animation: fade-in-art-content 1s 1;
+	-webkit-animation-fill-mode: forwards;
+	-moz-animation-fill-mode: forwards;
+	-o-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+}
+
+@keyframes fade-out-art-content {
+	0% {
+		opacity: 1;
+		content: "Dreaams#3546";
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+		content: "@Mrelliot#0000";
+	}
+}
+
+@keyframes fade-in-art-content {
+	0% {
+		opacity: 1;
+		content: "@Dreaams#3546";
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+		content: "Mrelliot#0000";
+	}
 }

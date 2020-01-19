@@ -42,7 +42,7 @@ function sortObjByNameAsc(a, b) {
 }
 
 function sortObjByNameDesc(a, b) {
-	return sortObjByNameCres(b, a);
+	return sortObjByNameAsc(b, a);
 }
 
 function getChartData()

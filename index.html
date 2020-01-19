@@ -34,16 +34,32 @@
 		</span>
 		<br><br>
 		<ul class="navbar">
-			<li class="navitem">
-				<button onclick="sortData(sortObjByScore)">Sort by value <i class="fa fa-list-ol"></i></button>
+			<li class="navitem dropdown">
+				<button onclick="sortData(sortObjByScoreDesc)">Sort by value <i class="fa fa-list-ol"></i></button>
+				<div class="dropdown-content">
+    				<table align="center">
+						<tr>
+							<td><button onclick="sortData(sortObjByScoreDesc)">N..1</button></td>
+							<td><button onclick="sortData(sortObjByScoreAsc)">1..N</button></td>
+						</tr>
+					</table>
+    			</div>
 			</li>
-			<li class="navitem">
-				<button onclick="sortData(sortObjByName)">Sort by name <i class="fa fa-id-card"></i></button>
+			<li class="navitem dropdown">
+				<button onclick="sortData(sortObjByNameAsc)">Sort by name <i class="fa fa-id-card"></i></button>
+				<div class="dropdown-content">
+    				<table align="center">
+						<tr>
+							<td><button onclick="sortData(sortObjByNameAsc)">A-Z</button></td>
+							<td><button onclick="sortData(sortObjByNameDesc)">Z-A</button></td>
+						</tr>
+					</table>
+    			</div>
 			</li>
 			<li class="navitem dropdown">
 				<button>Sort by Community <i class="fa fa-flag"></i></button>
     			<div class="dropdown-content">
-    				  <table id="communities" width="100%"></table>
+					<table id="communities" width="100%" align="center"></table>
     			</div>
     		</li>
 			<li class="navitem"><button onclick="setCommunity('')">Reset filter <i class="fa fa-cross"></i></button></li>

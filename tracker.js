@@ -27,14 +27,22 @@ function hexToRGBA(hex, alpha) {
     return "rgba(" + r + ", " + g + ", " + b + ", 0.5)";
 }
 
-function sortObjByScore(a, b) {
+function sortObjByScoreDesc(a, b) {
 	return b[1] - a[1];
 }
 
-function sortObjByName(a, b) {
+function sortObjByScoreAsc(a, b) {
+	return sortObjByScoreDesc(b, a);
+}
+
+function sortObjByNameAsc(a, b) {
 	if (a > b) return 1;
 	if (a < b) return -1;
 	return 0;
+}
+
+function sortObjByNameDesc(a, b) {
+	return sortObjByNameCres(b, a);
 }
 
 function getChartData()

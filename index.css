@@ -41,6 +41,11 @@ button:hover {
 	display: inline;
 }
 
+.navitem-right {
+	display: inline;
+	float: right;
+}
+
 .dropdown {
 	position: relative;
 	display: inline-block;

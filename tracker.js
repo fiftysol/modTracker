@@ -1,3 +1,4 @@
+let oldData;
 let currentChart, trackedData, rawNames, rawTrackedData;
 let staffList, communities = { };
 
@@ -102,7 +103,7 @@ function createChart(data)
 
 async function trackData()
 {
-	let data = await fetch("https://discbotdb.000webhostapp.com/get?k=&e=json&f=modTracker");
+	let data = await fetch("https://discbotdb.000webhostapp.com/get?k=&e=json&f=" + (oldData ? "modTracker_until_09-02-2020" : "modTracker"));
 	data = await data.json();
 	return data;
 }
@@ -194,6 +195,7 @@ function getElements()
 
 window.onload = async function()
 {
+	oldData = document.location.search.match(/[?&]old/);
 	await getElements();
 	let data = await trackData();
 	data = await filterData(data);

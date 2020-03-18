@@ -103,7 +103,7 @@ function createChart(data)
 
 async function trackData()
 {
-	let data = await fetch("https://discbotdb.000webhostapp.com/get?k=&e=json&f=" + (oldData ? "modTracker_until_09-02-2020" : "modTracker"));
+	let data = await fetch("https://discbotdb.000webhostapp.com/get?k=&e=json&f=" + (oldData ? ("modTracker_until_09-" + oldData + "-2020") : "modTracker"));
 	data = await data.json();
 	return data;
 }
@@ -195,7 +195,15 @@ function getElements()
 
 window.onload = async function()
 {
-	oldData = document.location.search.match(/[?&]old/);
+	try
+	{
+		oldData = document.location.search.match(/[?&]old(\d+)/)[1];
+	}
+	catch(_)
+	{
+		oldData = false;
+	}
+
 	await getElements();
 	let data = await trackData();
 	data = await filterData(data);

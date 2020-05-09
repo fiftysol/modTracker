@@ -103,7 +103,7 @@ function createChart(data)
 
 async function trackData()
 {
-	let data = await fetch("https://discbotdb.000webhostapp.com/get?k=&e=json&f=" + (oldData ? ("modTracker_until_09-" + oldData + "-2020") : "modTracker"));
+	let data = await fetch("https://discorddb.000webhostapp.com/get?k=&e=json&f=" + (oldData ? ("modTracker_until_09-" + oldData + "-2020") : "modTracker"));
 	data = await data.json();
 	return data;
 }
